@@ -1,0 +1,2 @@
+add_lunch_combo cm_vivo-eng
+add_lunch_combo cm_vivo-userdebug
