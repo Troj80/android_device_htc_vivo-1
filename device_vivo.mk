@@ -3,6 +3,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
+# Dalvik Heap
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
+
 $(call inherit-product-if-exists, vendor/htc/vivo/vivo-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/vivo/overlay
@@ -13,7 +16,7 @@ LOCAL_PATH := device/htc/vivo
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/ramdisk/fstab.sdcard:root/fstab.sdcard \
 	$(LOCAL_PATH)/ramdisk/fstab.vivo:root/fstab.vivo \
-	$(LOCAL_PATH)/ramdisk/init.htc7x30.usb.rc:root/init.htc7x30.usb.rc \
+	$(LOCAL_PATH)/ramdisk/init.vivo.usb.rc:root/init.vivo.usb.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivo.rc:root/init.vivo.rc \
 	$(LOCAL_PATH)/ramdisk/ueventd.vivo.rc:root/ueventd.vivo.rc
 
