@@ -29,7 +29,6 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
 
 # Kernel
-# TARGET_PREBUILT_KERNEL := device/htc/vivo/kernel
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x04400000
 BOARD_KERNEL_PAGESIZE := 2048
