@@ -1,4 +1,4 @@
-import init.htc7x30.usb.rc
+import init.vivo.usb.rc
 
 #on init
 #    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
@@ -12,7 +12,7 @@ import init.htc7x30.usb.rc
     mkdir /devlog 0700 root root
 
 on fs
-    mount_all /fstab.sdcard
+    mount_all ./fstab.sdcard
     
     # zRAM
 #    swapon_all /fstab.vivo
