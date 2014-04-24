@@ -12,10 +12,14 @@ import init.vivo.usb.rc
     mkdir /devlog 0700 root root
 
 on fs
-    mount_all ./fstab.sdcard
+    # Try to enable adb on startup for debugging
+    setprop ro.adb.secure 0
+    setprop ro.secure 0
+
+    mount_all /fstab.sdcard
     
     # zRAM
-#    swapon_all /fstab.vivo
+    swapon_all /fstab.sdcard
 
 on post-fs
     chmod 0771 /cache
