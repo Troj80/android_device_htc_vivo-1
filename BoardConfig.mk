@@ -14,6 +14,9 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := scorpion
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
+# Ramdisk
+TARGET_PROVIDES_INIT_RC := true
+
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
 
