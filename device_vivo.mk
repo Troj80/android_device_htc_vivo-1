@@ -51,10 +51,25 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	debug.composition.type=gpu \
 	debug.sf.hw=1 \
 	debug.egl.hw=1 \
+	ro.sf.lcd_density=240
 
 # Ramdisk
 PRODUCT_PACKAGES += \
 	init.rc
+
+# Display
+PRODUCT_PACKAGES += \
+	libgenlock \
+	libmemalloc \
+	liboverlay \
+	libqdutils \
+	libtilerenderer
+
+# HAL
+PRODUCT_PACKAGES += \
+	copybit.msm7x30 \
+	gralloc.msm7x30 \
+	hwcomposer.msm7x30
 
 $(call inherit-product, build/target/product/full.mk)
 
