@@ -1,53 +1,95 @@
+# Copyright (C) 2012 The Android Open Source Project
+#
+# USB configuration common for all android devices
+#
+
+on init
+    write /sys/class/android_usb/android0/f_rndis/manufacturer HTC
+    write /sys/class/android_usb/android0/f_rndis/vendorID 0bb4
+    write /sys/class/android_usb/android0/f_rndis/wceis 1
+
+on boot
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+
 # Used to disable USB when switching states
 on property:sys.usb.config=none
-    exec /system/bin/netcfg usb0 down
     stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/bDeviceClass 0
     setprop sys.usb.state ${sys.usb.config}
 
+# adb only USB configuration
+# This should only be used during device bringup
+# and as a fallback if the USB manager fails to set a standard configuration
 on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
     start adbd
-    write /sys/devices/platform/android_usb/usb_function_switch 2
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.config=mass_storage,adb
+# USB accessory configuration
+on property:sys.usb.config=accessory
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB accessory configuration, with adb
+on property:sys.usb.config=accessory,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
     start adbd
-    write /sys/devices/platform/android_usb/usb_function_switch 3
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.config=mass_storage
-    write /sys/devices/platform/android_usb/usb_function_switch 1
+# audio accessory configuration
+on property:sys.usb.config=audio_source
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.config=rndis
-    exec /system/bin/netcfg usb0 up
-    write /sys/devices/platform/android_usb/usb_function_switch 4
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=rndis,adb
-    exec /system/bin/netcfg usb0 up
+# audio accessory configuration, with adb
+on property:sys.usb.config=audio_source,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
     start adbd
-    write /sys/devices/platform/android_usb/usb_function_switch 6
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.config=mtp
-    write /sys/devices/platform/android_usb/usb_function_switch 128
+# USB and audio accessory configuration
+on property:sys.usb.config=accessory,audio_source
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.config=mtp,adb
+# USB and audio accessory configuration, with adb
+on property:sys.usb.config=accessory,audio_source,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0cac
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
     start adbd
-    write /sys/devices/platform/android_usb/usb_function_switch 130
     setprop sys.usb.state ${sys.usb.config}
 
-
-on property:sys.usb.config=ptp
-    write /sys/class/android_usb/android0/f_ptp/on 1
-    write /sys/devices/platform/android_usb/usb_function_switch 128
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=ptp,adb
-    start adbd
-    write /sys/class/android_usb/android0/f_ptp/on 1
-    write /sys/devices/platform/android_usb/usb_function_switch 130
-    setprop sys.usb.state ${sys.usb.config}
+# Used to set USB configuration at boot and to switch the configuration
+# when changing the default configuration
+on property:persist.sys.usb.config=*
+    setprop sys.usb.config ${persist.sys.usb.config}
