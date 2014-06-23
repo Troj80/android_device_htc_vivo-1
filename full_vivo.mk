@@ -35,6 +35,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from maguro device
 $(call inherit-product, device/htc/vivo/device.mk)
 
+$(call inherit-product, device/htc/vivo/aokp.mk)
+
 # Set those variables here to overwrite the inherited values.
 PRODUCT_NAME := full_vivo
 PRODUCT_DEVICE := vivo

@@ -1,4 +1,4 @@
-$(call inherit-product, device/htc/vivo/full_vivo.mk)
+# $(call inherit-product, device/htc/vivo/full_vivo.mk)
 
 PRODUCT_RELEASE_NAME := IncS
 
