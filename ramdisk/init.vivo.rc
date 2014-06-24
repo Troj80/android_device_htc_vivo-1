@@ -14,8 +14,7 @@
 # limitations under the License.
 #
 
-import init.mako.usb.rc
-import init.mako_svelte.rc
+import init.vivo.usb.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -49,7 +48,7 @@ on init
     setprop persist.radio.custom_ecc_hard "911,*911,#911,112,999,000,08,118,120,122,110,119,995,111,113,125,127,133"
 
 on fs
-    mount_all ./fstab.mako
+    mount_all ./fstab.vivo
     setprop ro.crypto.fuse_sdcard true
     write /sys/kernel/boot_adsp/boot 1
 
@@ -269,19 +268,6 @@ on property:init.svc.wpa_supplicant=stopped
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-
-service hciattach /system/bin/sh /system/etc/init.mako.bt.sh
-    class late_start
-    user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin system
-    disabled
-    oneshot
-
-on property:bluetooth.hciattach=true
-    start hciattach
-
-on property:bluetooth.hciattach=false
-    setprop bluetooth.status off
 
 service bridgemgrd /system/bin/bridgemgrd
     class main
