@@ -53,10 +53,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	debug.egl.hw=1 \
 	ro.sf.lcd_density=240
 
-# Ramdisk
-PRODUCT_PACKAGES += \
-	init.rc
-
 # Display
 PRODUCT_PACKAGES += \
 	libgenlock \

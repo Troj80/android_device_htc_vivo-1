@@ -4,19 +4,5 @@ include $(CLEAR_VARS)
 
 ALL_PREBUILT += $(INSTALLED_KERNEL_TARGET)
 
-#######################################
-# init.rc
-ifeq ($(TARGET_PROVIDES_INIT_RC),true)
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := init.rc
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_PREBUILT)
-endif
-#######################################
-
 # include the non-open-source counterpart to this file
 -include vendor/htc/vivo/AndroidBoardVendor.mk
