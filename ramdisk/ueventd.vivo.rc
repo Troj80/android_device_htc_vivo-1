@@ -31,6 +31,7 @@
 /dev/kgsl-3d0             0666   system     system
 /dev/kgsl-2d0             0666   system     system
 /dev/ion                  0664   system     system
+/dev/pmem                 0666   media      system
 /dev/rtc0                 0600   system     system
 /dev/smd*                 0640   radio      radio
 /dev/rmnet_mux_ctrl       0640   radio      radio
