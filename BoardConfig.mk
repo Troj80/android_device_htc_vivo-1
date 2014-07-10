@@ -36,8 +36,8 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storag
 
 # Kernel
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
-BOARD_KERNEL_BASE := 0x04400000
-BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_BASE := 0x4400000
+BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_SOURCE := kernel/htc/vivo
 TARGET_KERNEL_CONFIG := vivo_defconfig
 
